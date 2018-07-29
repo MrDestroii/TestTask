@@ -41,6 +41,7 @@ public class Main {
 		frame.setSize(500, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		resultTextArea = new JTextArea();
+		resultTextArea.setEditable(false);
 		JScrollPane scrollResultTextArea = new JScrollPane(resultTextArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		JMenuBar menuBar = new JMenuBar();
@@ -81,10 +82,10 @@ public class Main {
 						.getWeight();
 			}
 		}
-		/*
-		 * for (int i = 0; i < matr.length; i++) { for (int j = 0; j < matr.length; j++)
-		 * { System.out.print(matr[i][j]+" "); } System.out.println(); }
-		 */
+		
+		  for (int i = 0; i < matr.length; i++) { for (int j = 0; j < matr.length; j++)
+		 { System.out.print(matr[i][j]+" "); } System.out.println(); }
+		 
 		Arrays.fill(dist, maxsize);
 		Arrays.fill(used, false);
 		dist[start] = 0;
@@ -115,13 +116,33 @@ public class Main {
 			string[i] = "Минимальное расстояние до точки " + (i + 1) + " ровняется: " + dist[i] + "\n";
 		}
 		resultTextArea.append(string[finish]);
+		
+		int ver[] = new int[sizeDotList];
+		int end = finish;
+		ver[0] = end+1;
+		int c = 1;
+		int weight = dist[finish];	
+		while (end > 0) {
+			for (int i = 0; i < graph.getDotsList().size(); i++) {				
+				if (matr[end][i] !=0) {
+					int ancillaryInt = weight - matr[end][i];
+					if (ancillaryInt == dist[i]) {
+						weight = ancillaryInt;
+						end = i;
+						ver[c] = i+1;
+						c++;						
+					}
+				}
+			}
+		}
+		resultTextArea.append("Маршрут: ");
+		for (int i = 5; i >= 0; i--) {
+			if (ver[i]!=0) {
+				resultTextArea.append(String.valueOf(ver[i])+" ");
+			}			
+		}
+		resultTextArea.append("\n");
 	}
-
-	/*
-	 * public String toJson(Object obj) { Gson gson = new
-	 * GsonBuilder().setLenient().create(); try { return gson.toJson(obj); } catch
-	 * (JsonSyntaxException jse) { return null; } }
-	 */
 
 	public <T> T fromJson(String json, Class<T> classOfT) {
 		Gson gson = new GsonBuilder().create();
@@ -158,7 +179,7 @@ public class Main {
 				Hashtable labels = new Hashtable();
 				for (int i = 0; i < graph.getDotsList().size(); i++) {
 					labels.put(i, new JLabel(String.valueOf(graph.getDotsList().get(i).getDotName())));
-				}
+				}	
 				sliderFirsDot.setLabelTable(labels);
 				sliderFirsDot.setPaintLabels(true);
 				sliderSecondDot.setLabelTable(labels);
