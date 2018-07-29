@@ -18,6 +18,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JSlider;
 import javax.swing.JTextArea;
 import com.google.gson.Gson;
@@ -28,22 +29,47 @@ import main.model.Graph;
 
 public class Main {
 	private JFrame frame;
+	private JMenuItem menuItem;
 	private JSlider sliderFirsDot;
 	private JSlider sliderSecondDot;
 	private JTextArea resultTextArea;
 	private JButton buttonResult;
 	private Graph graph;
 	private BufferedReader bufferedReader;
-
+	Main(){
+		frame = new JFrame();
+		frame.setSize(500, 300);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		resultTextArea = new JTextArea();
+		JScrollPane scrollResultTextArea = new JScrollPane(resultTextArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		JMenuBar menuBar = new JMenuBar();
+		JMenu jMenu = new JMenu("Файл");
+		menuItem = new JMenuItem("Загрузить");
+		menuItem.addActionListener(new OpenMenuListener());
+		jMenu.add(menuItem);
+		menuBar.add(jMenu);
+		sliderFirsDot = new JSlider();
+		sliderSecondDot = new JSlider();
+		JPanel jPanel = new JPanel();
+		buttonResult = new JButton("Просчитать");
+		jPanel.setLayout(new GridLayout(4, 1));
+		jPanel.add(sliderFirsDot);
+		jPanel.add(sliderSecondDot);
+		jPanel.add(buttonResult);
+		jPanel.add(scrollResultTextArea);
+		frame.setJMenuBar(menuBar);
+		frame.add(jPanel, BorderLayout.CENTER);
+		frame.setVisible(true);
+	}
 	public static void main(String[] args) {
-		new Main().start();
+		new Main();
 	}
 
-	public void name(Graph graph, int start, int finish) {
+	public void calculate(Graph graph, int start, int finish) {
 		ArrayList<Dot> dots = graph.getDotsList();
 		int min, minindex;
 		int sizeDotList = dots.size();
-		System.out.println(sizeDotList);
 		int[][] matr = new int[sizeDotList][sizeDotList];
 		int ancillary;
 		int maxsize = Integer.MAX_VALUE / 2;
@@ -91,56 +117,11 @@ public class Main {
 		resultTextArea.append(string[finish]);
 	}
 
-	public void start() {
-		frame = new JFrame();
-		frame.setSize(500, 300);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		resultTextArea = new JTextArea();
-		JMenuBar menuBar = new JMenuBar();
-		JMenu jMenu = new JMenu("Файл");
-		JMenuItem menuItem = new JMenuItem("Загрузить");
-		menuItem.addActionListener(new OpenMenuListener());
-		jMenu.add(menuItem);
-		menuBar.add(jMenu);
-		sliderFirsDot = new JSlider();
-		sliderSecondDot = new JSlider();
-		JPanel jPanel = new JPanel();
-		buttonResult = new JButton("Просчитать");
-		jPanel.setLayout(new GridLayout(4, 1));
-		jPanel.add(sliderFirsDot);
-		jPanel.add(sliderSecondDot);
-		jPanel.add(buttonResult);
-		jPanel.add(resultTextArea);
-		frame.setJMenuBar(menuBar);
-		frame.add(jPanel, BorderLayout.CENTER);
-		frame.setVisible(true);
-
-		/*
-		 * Graph graph = new Graph(); Dot dot = new Dot(1); Dot dot2 = new Dot(2); Dot
-		 * dot3 = new Dot(3); Dot dot4 = new Dot(4); Dot dot5 = new Dot(5); Dot dot6 =
-		 * new Dot(6); dot.addCompound(new Compound(6, 14)); dot.addCompound(new
-		 * Compound(3, 9)); dot.addCompound(new Compound(2, 7)); dot2.addCompound(new
-		 * Compound(1, 7)); dot2.addCompound(new Compound(3, 10)); dot2.addCompound(new
-		 * Compound(4, 15)); dot3.addCompound(new Compound(1, 9)); dot3.addCompound(new
-		 * Compound(2, 10)); dot3.addCompound(new Compound(4, 11)); dot3.addCompound(new
-		 * Compound(6, 2)); dot4.addCompound(new Compound(2, 15)); dot4.addCompound(new
-		 * Compound(3, 11)); dot4.addCompound(new Compound(5, 6)); dot5.addCompound(new
-		 * Compound(4, 6)); dot5.addCompound(new Compound(6, 9)); dot6.addCompound(new
-		 * Compound(1, 14)); dot6.addCompound(new Compound(3, 2)); dot6.addCompound(new
-		 * Compound(5, 9)); graph.addDot(dot); graph.addDot(dot2); graph.addDot(dot3);
-		 * graph.addDot(dot4); graph.addDot(dot5); graph.addDot(dot6); name(graph);
-		 * System.out.println(toJson(graph));
-		 */
-	}
-
-	public String toJson(Object obj) {
-		Gson gson = new GsonBuilder().setLenient().create();
-		try {
-			return gson.toJson(obj);
-		} catch (JsonSyntaxException jse) {
-			return null;
-		}
-	}
+	/*
+	 * public String toJson(Object obj) { Gson gson = new
+	 * GsonBuilder().setLenient().create(); try { return gson.toJson(obj); } catch
+	 * (JsonSyntaxException jse) { return null; } }
+	 */
 
 	public <T> T fromJson(String json, Class<T> classOfT) {
 		Gson gson = new GsonBuilder().create();
@@ -161,7 +142,7 @@ public class Main {
 
 	public class calculateMenuListener implements ActionListener {
 		public void actionPerformed(ActionEvent ev) {
-			name(graph, sliderFirsDot.getValue(), sliderSecondDot.getValue());
+			calculate(graph, sliderFirsDot.getValue(), sliderSecondDot.getValue());
 		}
 	}
 
@@ -169,21 +150,24 @@ public class Main {
 		try {
 			bufferedReader = new BufferedReader(new FileReader(file));
 			String jString = null;
-			jString = bufferedReader.readLine();
-			graph = fromJson(jString, Graph.class);
-			sliderFirsDot.setMaximum(graph.getDotsList().size() - 1);
-			sliderSecondDot.setMaximum(graph.getDotsList().size() - 1);
-			Hashtable labels = new Hashtable();
-			for (int i = 0; i < graph.getDotsList().size(); i++) {
-				labels.put(i, new JLabel(String.valueOf(graph.getDotsList().get(i).getDotName())));
+			if (file.getPath().endsWith(".json")) {
+				jString = bufferedReader.readLine();
+				graph = fromJson(jString, Graph.class);
+				sliderFirsDot.setMaximum(graph.getDotsList().size() - 1);
+				sliderSecondDot.setMaximum(graph.getDotsList().size() - 1);
+				Hashtable labels = new Hashtable();
+				for (int i = 0; i < graph.getDotsList().size(); i++) {
+					labels.put(i, new JLabel(String.valueOf(graph.getDotsList().get(i).getDotName())));
+				}
+				sliderFirsDot.setLabelTable(labels);
+				sliderFirsDot.setPaintLabels(true);
+				sliderSecondDot.setLabelTable(labels);
+				sliderSecondDot.setPaintLabels(true);
+				buttonResult.addActionListener(new calculateMenuListener());
+			} else {
+				menuItem.doClick();
 			}
-			sliderFirsDot.setLabelTable(labels);
-			sliderFirsDot.setPaintLabels(true);
-			sliderSecondDot.setLabelTable(labels);
-			sliderSecondDot.setPaintLabels(true);
-			buttonResult.addActionListener(new calculateMenuListener());
 		} catch (Exception e) {
-			e.printStackTrace();
 		}
 	}
 }
