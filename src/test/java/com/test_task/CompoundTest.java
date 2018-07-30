@@ -6,10 +6,10 @@ import org.junit.Test;
 
 import com.test_task.model.Compound;
 
-class CompoundTest {
+public class CompoundTest {
 
 	@Test
-	final void testSetToDotName() {
+	public final void testSetToDotName() {
 		Compound compound = new Compound();
 		int toDotName = 2;
 		compound.setToDotName(toDotName);
@@ -18,7 +18,7 @@ class CompoundTest {
 	}
 
 	@Test
-	final void testGetToDotName() {
+	public final void testGetToDotName() {
 		int toDotName = 2;
 		Compound compound = new Compound();
 		compound.setToDotName(toDotName);
@@ -28,7 +28,7 @@ class CompoundTest {
 	}
 
 	@Test
-	final void testSetWeight() {
+	public final void testSetWeight() {
 		Compound compound = new Compound();
 		int weight = 22;
 		compound.setWeight(weight);
@@ -37,7 +37,7 @@ class CompoundTest {
 	}
 
 	@Test
-	final void testGetWeight() {
+	public final void testGetWeight() {
 		Compound compound = new Compound();
 		int weight = 22;
 		compound.setWeight(weight);

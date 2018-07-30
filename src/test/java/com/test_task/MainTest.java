@@ -14,15 +14,15 @@ import com.test_task.model.Compound;
 import com.test_task.model.Dot;
 import com.test_task.model.Graph;
 
-class MainTest {
+public class MainTest {
 
 	@Test
-	final void testStart() {
+	public final void testStart() {
 		assertNotNull(new Main());
 	}
 
 	@Test
-	final void testCalculate() {
+	public final void testCalculate() {
 		Main main = new Main();
 		Graph graph = new Graph();
 		Dot dot = new Dot(1);
@@ -63,7 +63,7 @@ class MainTest {
 	}
 
 	@Test
-	final void testMatrx() {
+	public final void testMatrx() {
 		Main main = new Main();
 		Graph graph = new Graph();
 		Dot dot = new Dot(1);
@@ -109,7 +109,7 @@ class MainTest {
 	}
 
 	@Test
-	final void testConclusion() {
+	public final void testConclusion() {
 		Main main = new Main();
 		Graph graph = new Graph();
 		Dot dot = new Dot(1);
@@ -153,7 +153,7 @@ class MainTest {
 	}
 
 	@Test
-	final void testRouteCalculation() {
+	public final void testRouteCalculation() {
 		Main main = new Main();
 		Graph graph = new Graph();
 		Dot dot = new Dot(1);
@@ -195,7 +195,7 @@ class MainTest {
 	}
 
 	@Test
-	final void testFromJson() {
+	public final void testFromJson() {
 		Main main = new Main();
 		Graph graph = new Graph();
 		Dot dot = new Dot(1);

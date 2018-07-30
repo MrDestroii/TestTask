@@ -9,10 +9,10 @@ import org.junit.Test;
 import com.test_task.model.Compound;
 import com.test_task.model.Dot;
 
-class DotTest {
+public class DotTest {
 
 	@Test
-	final void testSetDotName() {
+	public final void testSetDotName() {
 		Dot dot = new Dot(1);
 		int nameDotActual = 2;
 		dot.setDotName(nameDotActual);
@@ -21,7 +21,7 @@ class DotTest {
 	}
 
 	@Test
-	final void testGetDotName() {
+	public final void testGetDotName() {
 		Dot dot = new Dot();
 		int expectedName = 1;
 		dot.setDotName(expectedName);
@@ -31,7 +31,7 @@ class DotTest {
 	}
 
 	@Test
-	final void testSetCompounds() {
+	public final void testSetCompounds() {
 		Dot dot = new Dot(1);
 		Compound compound = new Compound(2,22);
 		ArrayList<Compound> compoundsList = new ArrayList<Compound>();
@@ -42,7 +42,7 @@ class DotTest {
 	}
 
 	@Test
-	final void testGetCompaunds() {
+	public final void testGetCompaunds() {
 		Dot dot = new Dot(1);
 		Compound compound = new Compound(2,22);
 		ArrayList<Compound> compoundsList = new ArrayList<Compound>();
@@ -54,7 +54,7 @@ class DotTest {
 	}
 
 	@Test
-	final void testAddCompound() {
+	public final void testAddCompound() {
 		Dot dot = new Dot(1);
 		Compound compound = new Compound(2,22);
 		dot.addCompound(compound);

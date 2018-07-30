@@ -9,10 +9,10 @@ import org.junit.Test;
 import com.test_task.model.Dot;
 import com.test_task.model.Graph;
 
-class GraphTest {
+public class GraphTest {
 	
 	@Test
-	final void testSetDotsList() {
+	public final void testSetDotsList() {
 		Graph graph = new Graph();
 		ArrayList<Dot> dotList = new ArrayList<Dot>();
 		Dot oneDot = new Dot(1);
@@ -27,7 +27,7 @@ class GraphTest {
 	}
 
 	@Test
-	final void testGetDotsList() {
+	public final void testGetDotsList() {
 		Graph graph = new Graph();
 		ArrayList<Dot> dotListActual = new ArrayList<Dot>();
 		Dot oneDot = new Dot(1);
@@ -43,7 +43,7 @@ class GraphTest {
 	}
 
 	@Test
-	final void testAddDot() {
+	public final void testAddDot() {
 		Graph graph = new Graph();
 		Dot dotActual = new Dot(1);
 		graph.addDot(dotActual);
