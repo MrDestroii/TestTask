@@ -1,10 +1,10 @@
-package main.model;
+package com.test_task.model;
 
 import java.util.ArrayList;
 
 public class Dot {
 	private int name;
-	private ArrayList<Compound> compounds = new ArrayList<>();
+	private ArrayList<Compound> compounds = new ArrayList<Compound>();
 	public Dot(int name) {
 		this.name = name;
 	}

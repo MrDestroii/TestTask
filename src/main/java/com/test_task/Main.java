@@ -1,4 +1,4 @@
-package main;
+package com.test_task;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -24,8 +24,8 @@ import javax.swing.JTextArea;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
-import main.model.Dot;
-import main.model.Graph;
+import com.test_task.model.Dot;
+import com.test_task.model.Graph;
 
 public class Main {
 	private JFrame frame;

@@ -1,4 +1,4 @@
-package main.model;
+package com.test_task.model;
 
 public class Compound {
 	private int toDotName;
