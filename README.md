@@ -1,87 +1,93 @@
 # TestTask
 
-One Paragraph of project description goes here
+Программа предназначена для рассчета кратчайшего пути по взвешенному графу.
 
-## Getting Started
+## Начало
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+С помщью этой инструкции вы получите копию проекта для разработки и тестирования.
 
-### Prerequisites
+### Предпосылки
 
-What things you need to install the software and how to install them
+Для работы программы нужно, что бы на вашем компьютере был установлен Maven
 
-```
-Give examples
-```
+Maven устанавливается просто копированием в нужную директорию — никакого инсталлера нет. Как и в случае с большинством консольных утилит для использования достаточно добавить директорию maven/bin в переменную окружения PATH.
 
-### Installing
 
-A step by step series of examples that tell you how to get a development env running
+То есть, если maven находится в d:/soft/maven, то в PATH надо добавить d:/soft/maven/bin
 
-Say what the step will be
 
-```
-Give the example
-```
+Ещё для работы maven потребует переменную JAVA_HOME, которая указывает на JDK. Если JDK находится в C:/Program Files/Java/jdk1.8.0_05, то именно такое значение нужно поместить в JAVA_HOME. Добавлять bin в конец не нужно.
 
-And repeat
+
+После этого можно попробовать написать в консоли
 
 ```
-until finished
+mvn --version
 ```
 
-End with an example of getting some data out of the system or using it for a little demo
+Если получится, значит maven установлен.
 
-## Running the tests
+Также запустить программу можно через любою IDE(Интегрированная среда разработки).
 
-Explain how to run the automated tests for this system
+## Запуск программы
 
-### Break down into end to end tests
-
-Explain what these tests test and why
+Для запуска программы нужно запустить командрную строку в корневой папке проекта и ввести команду:
 
 ```
-Give an example
+mvn exec:java -Dexec.mainClass="com.test_task.Start"
 ```
-
-### And coding style tests
-
-Explain what these tests test and why
+Но прежде меч запускать, рекомендуется ввести команду:
 
 ```
-Give an example
+mvn compile
 ```
 
-## Deployment
+## Запуск тестов
 
-Add additional notes about how to deploy this on a live system
+Запуск тестов производится через командную строку с помощью Maven или через любую IDE.
 
-## Built With
+Перед запуском тестов рекомендуется ввести в командную строку:
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
+```
+mvn compile
+```
 
-## Contributing
+Для запуска всех тестов нужно ввести в командной строке команду:
 
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
+```
+mvn test -Dtest="com.test_task.**" test
+```
 
-## Versioning
+Для запуска какого-то определенного теста нужно ввести в командной строке:
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
+```
+mvn test -Dtest=Название теста.
+```
 
-## Authors
+### Описание тестов
 
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
+#### MainTest
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+Тест, который тестирует методы start, calculate, matrx, conclusion, routeColculation,fromJson класса Main.
 
-## License
+#### GraphTest
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+Тест, который тестирует методы setDotList, getDotList, addDot класса Graph.
 
-## Acknowledgments
+#### DotTest
 
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
+Тест, который тестирует методы setDotName, getDotName, setCompounds, getCompounds, addCompound класса Dot.
+
+#### Compound
+
+Тест, который тестирует методы setToDotName, getToDotName, setWeight, getWeight класса Compound.
+
+## Построено с помощью
+
+* [Maven](https://maven.apache.org/) - Dependency Management 
+
+## Авторы
+
+* **Костяев Андрей** - *Изначальная разработка* - [MrDestroii](https://github.com/MrDestroii)
+
+Смотрите кто [участвовал](https://github.com/MrDestroii/TestTask/contributors) в этом проекте.
